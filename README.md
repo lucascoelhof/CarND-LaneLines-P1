@@ -2,10 +2,7 @@
 
 ---
 
-During the beginning of the self-driving car Engineer Nanodegree, I have learning a series of image processing techniques.
-We had the opportunity to apply this knowledge in a very interesting and hands-on project, to find traffic lanes on
-images and in a video stream. For that, I have programmed a image processing pipeline to treat the images
-and video streams to detect the lanes.
+During the beginning of the self-driving car Engineer Nanodegree, learned a series of image processing techniques. I had the opportunity to apply this knowledge in a very interesting and hands-on project, to find traffic lanes on images and in a video stream. For that, I have programmed an image processing pipeline to treat the images and video streams to detect the lanes.
 
 
 [initial]: ./test_images/solidYellowLeft.jpg "Initial image"
@@ -20,8 +17,7 @@ and video streams to detect the lanes.
 
 ## Image processing pipeline
 
-My pipeline consisted of 5 steps. We start with this image, and on each step I will
-show what did the step did with the image.
+My pipeline consisted of 5 steps. We start with this image, and on each step, I will show the result of the step on the image.
 
 ![alt text][initial]
 
@@ -46,7 +42,7 @@ with `kernel_size=11`. A larger kernel would apply a stronger smoothing.
 
 
 ### 3. Canny detection
-The [Canny edge detector](https://en.wikipedia.org/wiki/Canny_edge_detector) is a method to find edges in a image.
+The [Canny edge detector](https://en.wikipedia.org/wiki/Canny_edge_detector) is a method to find edges in an image.
 It is based on the gradient of pixel intensities. I've used `cv2.Canny(img, low_threshold, high_threshold)`.
 `low_threshold` and `high_threshold` are parameters set to filter the gradient values, so only values between
 `low_threshold` and `high_threshold` are kept. This part was critical, because depending on the road conditions,
@@ -62,17 +58,15 @@ we can expect that the lanes will be inside a polygon:
 
 ![alt text][masked_lines]
 
-Given that, we can filter the canny transform result to have the following result.
+Thus, we can filter the Canny transform result to have the following result.
 ![alt text][mask]
 We can see that much of the ambient, like trees and the horizon, which would trick our algorithm, is removed from
 the image.
 
 ### 5. Hough transform and final result
 
-The [Hough transform](https://en.wikipedia.org/wiki/Hough_transform) is used for feature extraction in computer vision to find classes of shapes in a given
-picture. These shapes can be circles, polygons, but in this case, I used Hough transform to detect lines from the masked
-Canny result image to find the actual driving lanes. After using the Hough transform, we will also filter the lines,
-to detect the right and left lane lines, using a average filter and a line interpolation. The final result is:
+The [Hough transform](https://en.wikipedia.org/wiki/Hough_transform) is used for feature extraction in computer vision to find classes of shapes in a given picture. These shapes can be circles, polygons, but in this case, I used Hough transform to detect lines from the masked Canny result image to find the actual driving lanes. After using the Hough transform, we will also filter the lines,
+to detect the right and left lane lines, using an average filter and a line interpolation. The final result is:
 
 ![alt text][final]
 
@@ -89,15 +83,15 @@ folder and the videos in __test_videos_output__.
 This pipeline was specifically designed and calibrated for this specific set of example images and videos.
 Thus, in different lighting conditions, or even different pavement color, this algorithm can behave unexpectedly.
 I personally don't expect that it will work at all in low light conditions like in the dark.
-Moreover, objects on the road or even dirt can arguably confuse the pipeline.
+Moreover, objects on the road or even dirt can potentially confuse the pipeline.
 
 ## Possible improvements
-One immediate improvement I can propose is to find a way to automatically calibrate the canny transform
-based on the current lighting of the image. I could see that there are some pages about auto-canny, like 
+One immediate improvement I can propose is to find a way to automatically calibrate the Canny transform
+based on the current lighting of the image. I could see that there are some pages about auto-Canny, like 
 [here](https://www.pyimagesearch.com/2015/04/06/zero-parameter-automatic-canny-edge-detection-with-python-and-opencv/)
 but I expect that during this Self-Driving Car Engineer Nanodegree we will learn more exciting and effective 
-techniques to treat that. Another possible improvement would be to have a configuration file instead of the `Configuration`
+techniques to treat that. Another possible improvement would be to have a configuration file instead of the _Configuration_
 class I'm using. I haven't done that because I did not want to include other dependencies than the ones from the 
-course example, but in a field implementation I would definitely use configuration files instead of
+course example, but in a real implementation I would definitely use configuration files instead of
 changing the code for that.
 
